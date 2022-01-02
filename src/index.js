@@ -1,17 +1,47 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, {useEffect, useState } from 'react';
+import ReactDom from 'react-dom';
+import Form from './components/regForm.js'
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+const App = () => {
+    const [posts, setPosts] = useState ([]);
+    //console.log('post: ', posts);
+    
+        useEffect(() => {
+            const fetchPosts = async ()  => {
+                const resp = await fetch ('https://strangers-things.herokuapp.com/api/2109-OKU-RM-WEB-PT/posts')
+                const {data} = await resp.json();
+                setPosts(data.posts);
+
+            }
+            fetchPosts();
+        }, [])
+
+            return <div className='app'>
+            <Form />
+            <h1>
+                Posts
+            </h1>
+            {
+             posts.map(post => <div key={post.id}>
+               <h3>{post.title}</h3> <span>Location: {post.location}</span>
+               <div>{post.description}</div>
+               <div>{post.price}</div>
+               
+               
+               
+             </div>)
+            }
+            
+            
+            </div>
+
+}
+
+
+
+
+ReactDom.render(
+    <App />,
+    document.getElementById('app')
+)
