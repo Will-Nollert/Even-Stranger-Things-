@@ -13,12 +13,34 @@ const Form = () => {
     console.log('password: ', password);
     setUsername('');
     setPassword('');
+    //registerUser();
   }
 
   const handleChange = (event) => {
     setUsername(event.target.value);
   }
 
+ /*  const registerUser = async () => {
+    try {
+      const response = await fetch("", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          user: {
+            username: "username",
+            password: "password",
+          },
+        }),
+      });
+      const { data } = await response.json();
+      localStorage.setItem("stAuth", JSON.stringify(data.token));
+    } catch (ex) {
+      console.error(ex);
+    }
+  };
+ */
   return (
     <div id='container'>
       <div id='navbar'>
